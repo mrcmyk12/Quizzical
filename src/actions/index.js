@@ -12,3 +12,11 @@ export const fetchQuestions = (category, difficulty) => {
 		dispatch({ type: "FETCH_QUESTIONS", payload: response.data.results });
 	};
 };
+
+export const selectDifficulty = (difficulty) => {
+   console.log(difficulty)
+   return {
+      type: "SELECTED_DIFFICULTY",
+      payload: difficulty
+   }
+}

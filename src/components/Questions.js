@@ -1,27 +1,25 @@
-import React, {useEffect} from 'react'
+import React, {useEffect, useState} from 'react'
 import {connect} from 'react-redux'
 import { fetchQuestions } from '../actions'
+import SelectDifficulty from './SelectDifficulty'
+import SelectCategory from './SelectCategory'
+
 
 
 
 const Questions = (props) => {
-
-   useEffect(() => {
-      props.fetchQuestions("9","hard");
-    },[]);
    
    console.log(props)
    return (
       <div>
-         Questions Go Here
+         <SelectDifficulty />
+         <SelectCategory />
       </div>
    )
 }
 
 const mapStateToProps = (state) => {
-   return {questions: state.questions}
+   return {difficulty: state.difficulty}
 }
 
-export default connect(mapStateToProps, {
-   fetchQuestions:fetchQuestions
-})(Questions)
+export default connect(mapStateToProps)(Questions)
