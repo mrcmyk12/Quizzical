@@ -1,41 +1,17 @@
-import React,{useEffect, useState} from 'react'
+import react from 'React'
+import {connect} from 'react-redux'
 
-const RenderAnswers = ({wrongAnswers, correctAnswer}) => {
+const RenderAnswers = (props) => {
 
-   const [jumbledAnswers, setJumbledAnswers] = useState(["no answers"])
 
-   useEffect(() => {
-      jumble();
-      console.log(jumbledAnswers);
-   },[])
-
-   const jumble = ()=>{
-
-      jumbledAnswers.pop();
-
-      wrongAnswers.map((answer) => {
-         jumbledAnswers.push(answer)
-      })
-
-      jumbledAnswers.push(correctAnswer)
-
-   }
-
-    const getRandomInt = (max) => {
-      return Math.floor(Math.random * max)
-    }
-
-   const renderAnswers = wrongAnswers.map((answer)=> {
-      return(
-         <div key={correctAnswer.indexOf(answer)}>{answer}</div>
-      )
-   })
 
    return(
-      <div>
-         {renderAnswers}
-      </div>
+      <div></div>
    )
 }
 
-export default RenderAnswers
+const mapStateToProps = (state) => {
+   return { questions: state.questions}
+}
+
+export default connect(mapStateToProps)(RenderAnswers)
