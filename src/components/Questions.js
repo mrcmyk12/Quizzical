@@ -1,25 +1,32 @@
-import React, {useEffect, useState} from 'react'
-import {connect} from 'react-redux'
-import { fetchQuestions } from '../actions'
-import SelectDifficulty from './SelectDifficulty'
-import SelectCategory from './SelectCategory'
-
-
-
+import React, { useEffect, useState } from "react";
+import { connect } from "react-redux";
+import { fetchQuestions, selectDifficulty, selectCategory } from "../actions";
+import RenderQuestion from "./RenderQuestion";
 
 const Questions = (props) => {
-   
-   console.log(props)
-   return (
-      <div>
-         <SelectDifficulty />
-         <SelectCategory />
-      </div>
-   )
-}
+
+	useEffect(() => {
+		props.fetchQuestions("2","hard")
+	},[]);
+
+	console.log(props.questions)
+
+	return (
+		<div>
+         <div>
+				<div>
+					<button onClick={()=> props.fetchQuestions("9","hard")}>Start Game</button>
+				</div>
+            <RenderQuestion questions={props.questions}/>
+         </div>
+		</div>
+	);
+};
 
 const mapStateToProps = (state) => {
-   return {difficulty: state.difficulty}
-}
+	return { questions: state.questions };
+};
 
-export default connect(mapStateToProps)(Questions)
+export default connect(mapStateToProps, {
+	fetchQuestions: fetchQuestions
+})(Questions);

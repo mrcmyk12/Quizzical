@@ -1,9 +1,10 @@
 import { combineReducers } from 'redux'
-import { fetchQuestions } from '../actions'
 import questionsReducer from './questionsReducer'
 import difficultyReducer from './difficultyReducer'
+import categoryReducer from './categoryReducer'
 
 export default combineReducers({
    questions: questionsReducer,
-   difficulty: difficultyReducer
+   difficulty: difficultyReducer,
+   category: categoryReducer
 })

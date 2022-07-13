@@ -8,15 +8,23 @@ export const fetchQuestions = (category, difficulty) => {
 		const response = await axios.get(
 			`https://opentdb.com/api.php?amount=5&category=${category}&difficulty=${difficulty}&type=multiple`
 		);
-
 		dispatch({ type: "FETCH_QUESTIONS", payload: response.data.results });
+		console.log(response)
 	};
+	
+	
 };
 
 export const selectDifficulty = (difficulty) => {
-   console.log(difficulty)
    return {
       type: "SELECTED_DIFFICULTY",
       payload: difficulty
    }
+}
+
+export const selectCategory = (category) => {
+	return {
+		type: 'SELECTED_CATEGORY',
+		payload: category
+	}
 }
