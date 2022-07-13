@@ -15,6 +15,16 @@ export const fetchQuestions = (category, difficulty) => {
 	
 };
 
+export const updateScore = (currentPoints, addedPoints) => {
+
+	const	newPoints = currentPoints * addedPoints
+
+	return{
+		type:'POINTS',
+		payload: newPoints
+	}
+}
+
 
 
 export const jumbleAnswers = (wrongAnswers, correctAnswer) => {

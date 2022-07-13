@@ -1,19 +1,21 @@
 import { render } from "@testing-library/react";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchQuestions } from "../actions";
+import { fetchQuestions, updateScore } from "../actions";
 
-const RenderQuestions = ({ questions, fetchQuestions }) => {
+const RenderQuestions = ({ questions, fetchQuestions, updateScore, points }) => {
 	const [answerStatus, setAnswerStatus] = useState("");
 
 	if (!questions[0]) {
 		return <div></div>;
 	}
 
+
 	const checkAnswer = (answer) => {
 		if (answer == questions[0].correct_answer) {
 			setAnswerStatus("Correct!");
          fetchQuestions("9","hard")
+         updateScore(points, 10)
          return;
 		}
 
@@ -38,22 +40,16 @@ const RenderQuestions = ({ questions, fetchQuestions }) => {
 				{questions[0].correct_answer}
 			</button>
 			<div>{answerStatus}</div>
+         <div>{points}</div>
 		</div>
 	);
 };
 
 const mapStateToProps = (state) => {
-	return { questions: state.questions };
+	return { questions: state.questions, points: state.points };
 };
 
-export default connect(mapStateToProps, { fetchQuestions: fetchQuestions })(
+export default connect(mapStateToProps, { fetchQuestions: fetchQuestions,  updateScore: updateScore})(
 	RenderQuestions
 );
 
-// const render = () => {
-
-//    if(!questions[0]){
-//       return(
-//          <div></div>
-//       )
-//    }
