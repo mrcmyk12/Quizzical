@@ -5,7 +5,7 @@ import RenderQuestions from "./RenderQuestions";
 
 const Questions = (props) => {
 	useEffect(() => {
-		props.fetchQuestions("9", "easy");
+		props.fetchQuestions("medium");
 		console.log(props.answers);
 	}, []);
 
