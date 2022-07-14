@@ -1,21 +1,21 @@
 import { render } from "@testing-library/react";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchQuestions, updateScore } from "../actions";
+import { fetchQuestions, randomizeQuestions, updateScore } from "../actions";
 
-const RenderQuestions = ({ questions, fetchQuestions, updateScore, points }) => {
+const RenderQuestions = ({ questions, fetchQuestions, updateScore, points, answers, randomizeQuestions }) => {
 	const [answerStatus, setAnswerStatus] = useState("");
 
 	if (!questions[0]) {
 		return <div></div>;
 	}
 
-
 	const checkAnswer = (answer) => {
 		if (answer == questions[0].correct_answer) {
 			setAnswerStatus("Correct!");
          fetchQuestions("9","hard")
          updateScore(points, 10)
+         
          return;
 		}
 
@@ -26,7 +26,7 @@ const RenderQuestions = ({ questions, fetchQuestions, updateScore, points }) => 
 
 	return (
 		<div>
-			<div>{questions[0].question}</div>
+			<div><p>{questions[0].question}</p></div>
 			<button onClick={() => checkAnswer(questions[0].incorrect_answers[0])}>
 				{questions[0].incorrect_answers[0]}
 			</button>
@@ -46,10 +46,10 @@ const RenderQuestions = ({ questions, fetchQuestions, updateScore, points }) => 
 };
 
 const mapStateToProps = (state) => {
-	return { questions: state.questions, points: state.points };
+	return { questions: state.questions, points: state.points, answers: state.answers };
 };
 
-export default connect(mapStateToProps, { fetchQuestions: fetchQuestions,  updateScore: updateScore})(
+export default connect(mapStateToProps, { fetchQuestions: fetchQuestions,  updateScore: updateScore })(
 	RenderQuestions
 );
 
