@@ -1,5 +1,4 @@
-import React, {useEffect} from 'react'
-import {connect} from 'redux'
+import React from 'react'
 import Questions from './Questions'
 
 
