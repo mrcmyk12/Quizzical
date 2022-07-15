@@ -12,10 +12,38 @@ const RenderQuestions = ({
 	answers
 }) => {
 	const [answerStatus, setAnswerStatus] = useState("");
+   const [seconds, setSeconds] = useState(0)
+   const [minutes, setMinutes] = useState(0)
+   const [gameStatus, setGameStatus] = useState()
+
+   var timer;
+
+   useEffect(() => {
+      timer = setInterval(() => {
+         setSeconds(seconds+1);
+
+         if(seconds===59){
+            setMinutes(minutes+1)
+            setSeconds(0);
+         }
+      checkTime();
+
+      },1000)
+
+      return ()=>clearInterval(timer)
+   })
 
 	if (!questions[0]) {
 		return <div></div>;
 	}
+
+   const checkTime = ()=>{
+      if(seconds === 10){
+         setAnswerStatus("Incorrect!");
+		   fetchQuestions("medium");
+         setSeconds(0)
+      }
+   }
 
 	const checkAnswer = (answer) => {
 		if (answer == questions[0].correct_answer) {
@@ -50,7 +78,7 @@ const RenderQuestions = ({
 			<button onClick={() => checkAnswer(answers[3])}>{answers[3]}</button>
 			<div>{answerStatus}</div>
 			<div>{points}</div>
-         <Timer />
+         <h1>{minutes}:{seconds}</h1>
 		</div>
 	);
 };
