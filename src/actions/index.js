@@ -2,10 +2,10 @@ import axios from "axios";
 
 //https://opentdb.com/api.php?amount=5&category=9&difficulty=medium&type=multiple
 
-export const fetchQuestions = (difficulty) => {
+export const fetchQuestions = (difficulty, category) => {
 	return async (dispatch) => {
 		const response = await axios.get(
-			`https://opentdb.com/api.php?amount=1&difficulty=${difficulty}&type=multiple`
+			`https://opentdb.com/api.php?amount=1&category=${category}&difficulty=${difficulty}&type=multiple`
 		);
 		dispatch({ type: "FETCH_QUESTIONS", payload: response.data.results });
 		dispatch({type: "SELECTED_ANSWERS", payload: randomizeQuestions(response.data.results[0].incorrect_answers, response.data.results[0].correct_answer)})
@@ -45,8 +45,8 @@ export const updateScore = (currentPoints, addedPoints) => {
 };
 
 
-
 export const selectDifficulty = (difficulty) => {
+	console.log(difficulty)
 	return {
 		type: "SELECTED_DIFFICULTY",
 		payload: difficulty
@@ -54,6 +54,7 @@ export const selectDifficulty = (difficulty) => {
 };
 
 export const selectCategory = (category) => {
+	console.log(category)
 	return {
 		type: "SELECTED_CATEGORY",
 		payload: category

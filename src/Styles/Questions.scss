@@ -1,0 +1,180 @@
+@import "../Variables/variables.scss";
+
+@mixin standard_drop_shadow {
+   box-shadow: 4px 4px 16px rgba(0,0,0,0.94);
+   border-radius: 16px;
+}
+
+@mixin button_drop_shadow {
+   box-shadow: inset 8px 8px 16px rgba(0,0,0,0.25);
+   filter: drop-shadow(8px 8px 24px rgba(0,0,0))
+}
+
+@mixin button_base{
+   @include standard_drop_shadow;
+   @include button_text;
+   border-radius: 12px;
+   border: none;
+   width: 100%;
+}
+
+@mixin question_text{
+   font-family: $mainFont;
+   font-style: normal;
+   font-weight: 900;
+   font-size: 24px;
+   line-height: 47px;
+   color: white;
+   text-align: center
+}
+
+@mixin wrong_right_text{
+   font-family: $secondaryFont;
+   font-style: normal;
+   font-weight: 400;
+   font-size: 64px;
+   line-height: 100px;
+   text-align: center;
+   text-transform: uppercase;
+}
+
+@mixin button_gradients($firstColor, $rgba){
+   background: linear-gradient(180deg, $firstColor 0%, $rgba 100%)
+}
+
+@mixin radial_button_gradient($mainColor, $rgba){
+   background: radial-gradient(80.05% 80.05% at 50% 50%, $mainColor 0%, $rgba 100%);
+   @include button_drop_shadow;
+}
+
+@mixin button_text{
+   font-family: $mainFont;
+   font-style: normal;
+   font-weight: 900;
+   font-size: 18px;
+   line-height: 32px;
+   letter-spacing: 0.0125em;
+   color: white;
+}
+
+@mixin point_text{
+   font-family: $mainFont;
+   font-style:normal;
+   font-weight:bolder;
+   font-size: 48px;
+   line-height: 95px;
+   color:$tertiary;
+   
+}
+
+.point_text{
+   @include point_text;
+}
+
+.time_text{
+   @include point_text;
+   color:$highlight;
+}
+
+.game_paused_text{
+   @include button_text;
+   color: $highlight
+}
+
+.answer_button{
+   @include button_drop_shadow;
+   @include button_text;
+   background: $secondary;
+   border-radius: 8px;
+   width: 100%;
+   border: none;
+   padding: 15px;
+   margin: 20px
+}
+
+
+.question-card{
+   @include question_text;
+   @include standard_drop_shadow;
+   background: $primary;
+   border: 4px solid #f5f5f5;
+   padding: 15px;
+   margin-bottom: 20px;
+}
+
+.background-gradient{
+   background: linear-gradient(180deg, $primary 63.38%, rgba(14,12,27,0.82) 100%);
+   min-height: 100vh;
+   height:auto
+}
+
+.correct{
+   @include wrong_right_text;
+   color: $correctGreen;
+}
+
+.wrong{
+   @include wrong_right_text;
+   color: $wrongRed;
+}
+
+.paused{
+   @include wrong_right_text;
+   color:$highlight
+}
+
+.resumed{
+   @include wrong_right_text;
+   color:white
+}
+
+.select_difficulty_text{
+   @include point_text;
+   font-size: 24px;
+   color:white
+}
+
+.difficulty_button{
+   @include button_base;
+   @include button_gradients($highlight, rgba(168, 35, 147, 0))
+}
+
+.subheading_text{
+   @include point_text;
+   font-size: 18px;
+}
+
+.category_selection{
+   @include wrong_right_text;
+   font-size: 20px;
+   color: $wrongRed;
+}
+
+.start_button{
+   @include button_text;
+   @include button_base;
+   @include button_drop_shadow;
+   margin-top: 30px;
+   border-radius: 8px;
+   background: $correctGreen;
+   height: 50px;
+}
+
+.category_button{
+   @include button_base;
+   @include radial_button_gradient(#6C84B9, rgba(108, 132, 185, 0));
+   @include button_text;
+   height: 100px;
+   width: 100%;
+   margin-bottom: 15px;
+}
+
+.question_count_text{
+   @include button_text;
+   
+}
+
+
+
+
+

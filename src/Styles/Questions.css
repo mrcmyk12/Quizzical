@@ -1,0 +1,228 @@
+.point_text {
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: bolder;
+  font-size: 48px;
+  line-height: 95px;
+  color: rgb(109, 132, 185);
+}
+
+.time_text {
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: bolder;
+  font-size: 48px;
+  line-height: 95px;
+  color: rgb(109, 132, 185);
+  color: rgb(168, 35, 147);
+}
+
+.game_paused_text {
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 32px;
+  letter-spacing: 0.0125em;
+  color: white;
+  color: rgb(168, 35, 147);
+}
+
+.answer_button {
+  box-shadow: inset 8px 8px 16px rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(8px 8px 24px rgb(0, 0, 0));
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 32px;
+  letter-spacing: 0.0125em;
+  color: white;
+  background: rgb(189, 27, 105);
+  border-radius: 8px;
+  width: 100%;
+  border: none;
+  padding: 15px;
+  margin: 20px;
+}
+
+.question-card {
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 24px;
+  line-height: 47px;
+  color: white;
+  text-align: center;
+  box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.94);
+  border-radius: 16px;
+  background: rgb(33, 29, 62);
+  border: 4px solid #f5f5f5;
+  padding: 15px;
+  margin-bottom: 20px;
+}
+
+.background-gradient {
+  background: linear-gradient(180deg, rgb(33, 29, 62) 63.38%, rgba(14, 12, 27, 0.82) 100%);
+  min-height: 100vh;
+  height: auto;
+}
+
+.correct {
+  font-family: "Permanent Marker", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgb(21, 203, 17);
+}
+
+.wrong {
+  font-family: "Permanent Marker", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgb(248, 6, 6);
+}
+
+.paused {
+  font-family: "Permanent Marker", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  color: rgb(168, 35, 147);
+}
+
+.resumed {
+  font-family: "Permanent Marker", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  color: white;
+}
+
+.select_difficulty_text {
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: bolder;
+  font-size: 48px;
+  line-height: 95px;
+  color: rgb(109, 132, 185);
+  font-size: 24px;
+  color: white;
+}
+
+.difficulty_button {
+  box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.94);
+  border-radius: 16px;
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 32px;
+  letter-spacing: 0.0125em;
+  color: white;
+  border-radius: 12px;
+  border: none;
+  width: 100%;
+  background: linear-gradient(180deg, rgb(168, 35, 147) 0%, rgba(168, 35, 147, 0) 100%);
+}
+
+.subheading_text {
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: bolder;
+  font-size: 48px;
+  line-height: 95px;
+  color: rgb(109, 132, 185);
+  font-size: 18px;
+}
+
+.category_selection {
+  font-family: "Permanent Marker", sans-serif;
+  font-style: normal;
+  font-weight: 400;
+  font-size: 64px;
+  line-height: 100px;
+  text-align: center;
+  text-transform: uppercase;
+  font-size: 20px;
+  color: rgb(248, 6, 6);
+}
+
+.start_button {
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 32px;
+  letter-spacing: 0.0125em;
+  color: white;
+  box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.94);
+  border-radius: 16px;
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 32px;
+  letter-spacing: 0.0125em;
+  color: white;
+  border-radius: 12px;
+  border: none;
+  width: 100%;
+  box-shadow: inset 8px 8px 16px rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(8px 8px 24px rgb(0, 0, 0));
+  margin-top: 30px;
+  border-radius: 8px;
+  background: rgb(21, 203, 17);
+  height: 50px;
+}
+
+.category_button {
+  box-shadow: 4px 4px 16px rgba(0, 0, 0, 0.94);
+  border-radius: 16px;
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 32px;
+  letter-spacing: 0.0125em;
+  color: white;
+  border-radius: 12px;
+  border: none;
+  width: 100%;
+  background: radial-gradient(80.05% 80.05% at 50% 50%, #6C84B9 0%, rgba(108, 132, 185, 0) 100%);
+  box-shadow: inset 8px 8px 16px rgba(0, 0, 0, 0.25);
+  filter: drop-shadow(8px 8px 24px rgb(0, 0, 0));
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 32px;
+  letter-spacing: 0.0125em;
+  color: white;
+  height: 100px;
+  width: 100%;
+  margin-bottom: 15px;
+}
+
+.question_count_text {
+  font-family: "Roboto Slab", serif;
+  font-style: normal;
+  font-weight: 900;
+  font-size: 18px;
+  line-height: 32px;
+  letter-spacing: 0.0125em;
+  color: white;
+}/*# sourceMappingURL=Questions.css.map */

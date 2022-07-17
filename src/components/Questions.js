@@ -5,8 +5,8 @@ import RenderQuestions from "./RenderQuestions";
 
 const Questions = (props) => {
 	useEffect(() => {
-		props.fetchQuestions("medium");
-		console.log(props.answers);
+		props.fetchQuestions(props.difficulty,props.category);
+		console.log(props);
 	}, []);
 
 	if (!props.questions[0]) {
@@ -21,7 +21,12 @@ const Questions = (props) => {
 };
 
 const mapStateToProps = (state) => {
-	return { questions: state.questions, answers: state.answers };
+	return {
+		questions: state.questions,
+		answers: state.answers,
+		category: state.category,
+		difficulty: state.difficulty
+	};
 };
 
 export default connect(mapStateToProps, {
