@@ -6,7 +6,7 @@ import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
 import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
-import { fetchQuestions, updateScore } from "../actions";
+import { fetchQuestions, updateScore, updateRound } from "../actions";
 
 const RenderQuestions = ({
 	questions,
@@ -16,7 +16,9 @@ const RenderQuestions = ({
 	answers,
 	category,
 	difficulty,
-	response_code
+	response_code,
+	updateRound,
+	round
 }) => {
 	const [answerStatus, setAnswerStatus] = useState("");
 	const [seconds, setSeconds] = useState(0);
@@ -46,8 +48,8 @@ const RenderQuestions = ({
 				setSeconds("Game Paused");
 			}
 
-			if(seconds == "Game Over"){
-				setSeconds("Game Over")
+			if (seconds == "Game Over") {
+				setSeconds("Game Over");
 			}
 			checkTime();
 		}, 1000);
@@ -60,10 +62,11 @@ const RenderQuestions = ({
 	}
 
 	const toggleEnd = () => {
-		if (count == 2) {
-			setSeconds("Game Over")
-			setAnswerStatus("Game Over")
+		if (count == 10) {
+			setSeconds("Game Over");
+			setAnswerStatus("Game Over");
 			setModal(!modal);
+			updateRound(round)
 			return;
 		}
 		return;
@@ -156,13 +159,13 @@ const RenderQuestions = ({
 		<div>
 			<div className="container">
 				<div className="row" style={{ marginBottom: "30px" }}>
-					<div className="col-3">
+					<div className="col-sm-3">
 						<p className="point_text">{points}</p>
 					</div>
-					<div className="col-5">
+					<div className="col-sm-5">
 						<p className={`${answerStatus}`}>{answerStatus}</p>
 					</div>
-					<div className="col-1">
+					<div className="col-sm-1">
 						<a onClick={() => play()}>
 							<FontAwesomeIcon
 								className="fa-2xl"
@@ -171,7 +174,7 @@ const RenderQuestions = ({
 							/>
 						</a>
 					</div>
-					<div className="col-1">
+					<div className="col-sm-1">
 						<a onClick={() => pause()}>
 							<FontAwesomeIcon
 								className="fa-2xl"
@@ -180,7 +183,7 @@ const RenderQuestions = ({
 							/>
 						</a>
 					</div>
-					<div className="col-1">
+					<div className="col-sm-1">
 						<p className="time_text">{displayTime()}</p>
 						<p className="question_count_text">#{count - 1}</p>
 					</div>
@@ -191,7 +194,7 @@ const RenderQuestions = ({
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-6">
+					<div className="col-sm-6">
 						<button
 							className="answer_button"
 							onClick={() => {
@@ -202,7 +205,7 @@ const RenderQuestions = ({
 							{questionCleaner(answers[0])}
 						</button>
 					</div>
-					<div className="col-6">
+					<div className="col-sm-6">
 						<button
 							className="answer_button"
 							onClick={() => {
@@ -213,7 +216,7 @@ const RenderQuestions = ({
 							{questionCleaner(answers[1])}
 						</button>
 					</div>
-					<div className="col-6">
+					<div className="col-sm-6">
 						<button
 							className="answer_button"
 							onClick={() => {
@@ -224,7 +227,7 @@ const RenderQuestions = ({
 							{questionCleaner(answers[2])}
 						</button>
 					</div>
-					<div className="col-6">
+					<div className="col-sm-6">
 						<button
 							className="answer_button"
 							onClick={() => {
@@ -240,19 +243,20 @@ const RenderQuestions = ({
 							<Modal isOpen={modal}>
 								<ModalHeader>Round Over</ModalHeader>
 								<ModalBody>
-									Lorem ipsum dolor sit amet, consectetur adipisicing
-									elit, sed do eiusmod tempor incididunt ut labore et
-									dolore magna aliqua. Ut enim ad minim veniam, quis
-									nostrud exercitation ullamco laboris nisi ut aliquip
-									ex ea commodo consequat. Duis aute irure dolor in
-									reprehenderit in voluptate velit esse cillum dolore
-									eu fugiat nulla pariatur. Excepteur sint occaecat
-									cupidatat non proident, sunt in culpa qui officia
-									deserunt mollit anim id est laborum.
+									Awesome. You have finished this round. Go back to the
+									home page and seleect a different category to score
+									some more points.
 								</ModalBody>
 								<ModalFooter>
 									<button className="difficulty_button">
-										<Link style={{textDecoration:"none", color:"white"}} to={"/"}>Back to Home Page</Link>
+										<Link
+											style={{
+												textDecoration: "none",
+												color: "white"
+											}}
+											to={"/"}>
+											Back to Home Page
+										</Link>
 									</button>
 								</ModalFooter>
 							</Modal>
@@ -261,10 +265,15 @@ const RenderQuestions = ({
 							<Modal isOpen={otherModal}>
 								<ModalHeader>Oops</ModalHeader>
 								<ModalBody>
-									Oh no, something went wrong.  Please hit the button below to attempt to fetch the question again
+									Oh no, something went wrong. Please hit the button
+									below to attempt to fetch the question again
 								</ModalBody>
 								<ModalFooter>
-									<button onClick={()=>{fetchQuestions(difficulty, category) ; setOtherModal(!otherModal)}}>
+									<button
+										onClick={() => {
+											fetchQuestions(difficulty, category);
+											setOtherModal(!otherModal);
+										}}>
 										Try Again
 									</button>
 								</ModalFooter>
@@ -284,11 +293,13 @@ const mapStateToProps = (state) => {
 		answers: state.answers,
 		difficulty: state.difficulty,
 		category: state.category,
-		response_code: state.response_code
+		response_code: state.response_code,
+		round: state.round
 	};
 };
 
 export default connect(mapStateToProps, {
 	fetchQuestions: fetchQuestions,
-	updateScore: updateScore
+	updateScore: updateScore,
+	updateRound: updateRound
 })(RenderQuestions);

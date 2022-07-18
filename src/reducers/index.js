@@ -6,6 +6,7 @@ import answersReducer from './answersReducer'
 import pointsReducer from './pointsReducer'
 import sessionKeyReducer from './sessionKeyReducer'
 import responseCodeReducer from './responseCodeReducer'
+import roundReducer from './roundReducer'
 
 export default combineReducers({
    questions: questionsReducer,
@@ -14,5 +15,6 @@ export default combineReducers({
    answers: answersReducer,
    points: pointsReducer,
    sessionKey: sessionKeyReducer,
-   response_code: responseCodeReducer
+   response_code: responseCodeReducer,
+   round: roundReducer
 })

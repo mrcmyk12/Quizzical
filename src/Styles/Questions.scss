@@ -136,7 +136,8 @@
 
 .difficulty_button{
    @include button_base;
-   @include button_gradients($highlight, rgba(168, 35, 147, 0))
+   @include button_gradients($highlight, rgba(168, 35, 147, 0));
+   margin-bottom: 25px
 }
 
 .subheading_text{
@@ -170,8 +171,13 @@
 }
 
 .question_count_text{
-   @include button_text;
-   
+   @include button_text; 
+}
+
+.point_total_text{
+   @include wrong_right_text;
+   font-size: 40px;
+   color: $wrongRed;
 }
 
 

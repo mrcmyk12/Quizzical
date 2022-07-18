@@ -60,6 +60,17 @@ export const updateScore = (currentPoints, addedPoints, multiplier) => {
 	};
 };
 
+export const updateRound = (round) => {
+	const intRound = parseInt(round);
+
+	const newRound = intRound + 1;
+
+	return {
+		type: "ROUND",
+		payload: newRound
+	}
+}
+
 
 export const selectDifficulty = (difficulty) => {
 	console.log(difficulty)

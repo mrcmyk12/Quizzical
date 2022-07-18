@@ -1,15 +1,22 @@
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
 import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
-import { fetchQuestions, selectCategory, selectDifficulty } from "../actions";
+import {
+	fetchQuestions,
+	selectCategory,
+	selectDifficulty,
+	updateRound
+} from "../actions";
 import { Link } from "react-router-dom";
 
 const Home = ({
 	fetchQuestions,
+	updateRound,
 	selectDifficulty,
 	selectCategory,
 	response_code,
-	points
+	points,
+	round
 }) => {
 	const categoryObject = {
 		General: 9,
@@ -67,6 +74,7 @@ const Home = ({
 	const [difficulty, setDifficulty] = useState("");
 	const [category, setCategory] = useState("");
 	const [modal, setModal] = useState(false);
+	const [endModal, setEndModal] = useState(false);
 	const [fetchCategory, setFetchCategory] = useState(9);
 
 	useEffect(() => {
@@ -75,9 +83,15 @@ const Home = ({
 		}
 	}, [fetchQuestions]);
 
+	useEffect(() => {
+		if(round > 5){
+
+		}
+	})
+
 	const mapCategories = categoryOptions.map((category) => {
 		return (
-			<div className="col-2" key={category}>
+			<div className="col-sm-2" key={category}>
 				<button
 					onClick={() => categoryHandler(category)}
 					className="category_button">
@@ -117,7 +131,7 @@ const Home = ({
 	return (
 		<div className="container">
 			<div className="row">
-				<div className="col-6">
+				<div className="col-sm-7">
 					<p className="subheading_text">
 						Difficulty:{" "}
 						<b
@@ -125,13 +139,17 @@ const Home = ({
 							style={{ marginRight: "15px" }}>
 							{difficulty}
 						</b>
-						Category: <b className="category_selection">{category}</b>
+						Category: <b className="category_selection" style={{marginRight:"15px"}}>{category}</b>
+						Round: <b className="category_selection">{round}</b>
 					</p>
 				</div>
-				<div className="col-4">
-					<p className="subheading_text">Current Point Total:{" "}<b className="point_total_text">{points}</b></p>
+				<div className="col-sm-3">
+					<p className="subheading_text">
+						Current Point Total:{" "}
+						<b className="point_total_text">{points}</b>
+					</p>
 				</div>
-				<div className="col-2">
+				<div className="col-sm-2">
 					<button className="start_button">
 						<Link
 							style={{ textDecoration: "none", color: "white" }}
@@ -142,26 +160,26 @@ const Home = ({
 				</div>
 			</div>
 			<div className="row">
-				<div className="col-3">
+				<div className="col-sm-3">
 					<p className="select_difficulty_text">Select Difficulty</p>
 				</div>
 			</div>
 			<div className="row">
-				<div className="col">
+				<div className="col-sm-4">
 					<button
 						onClick={() => difficultyHandler("easy")}
 						className="difficulty_button">
 						Easy
 					</button>
 				</div>
-				<div className="col">
+				<div className="col-sm-4">
 					<button
 						onClick={() => difficultyHandler("medium")}
 						className="difficulty_button">
 						Medium
 					</button>
 				</div>
-				<div className="col">
+				<div className="col-sm-4">
 					<button
 						onClick={() => difficultyHandler("hard")}
 						className="difficulty_button">
@@ -201,12 +219,14 @@ const Home = ({
 const mapStateToProps = (state) => {
 	return {
 		response_code: state.response_code,
-		points:	state.points
+		points: state.points,
+		round: state.round
 	};
 };
 
 export default connect(mapStateToProps, {
 	fetchQuestions: fetchQuestions,
 	selectCategory: selectCategory,
-	selectDifficulty: selectDifficulty
+	selectDifficulty: selectDifficulty,
+	updateRound: updateRound
 })(Home);
