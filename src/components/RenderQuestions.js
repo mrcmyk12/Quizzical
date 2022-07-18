@@ -1,8 +1,10 @@
 import { render } from "@testing-library/react";
 import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Link } from "react-router-dom";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faPlay, faPause } from "@fortawesome/free-solid-svg-icons";
+import { Modal, ModalBody, ModalFooter, ModalHeader } from "reactstrap";
 
 import { fetchQuestions, updateScore } from "../actions";
 
@@ -13,14 +15,23 @@ const RenderQuestions = ({
 	points,
 	answers,
 	category,
-	difficulty
+	difficulty,
+	response_code
 }) => {
 	const [answerStatus, setAnswerStatus] = useState("");
 	const [seconds, setSeconds] = useState(0);
 	const [minutes, setMinutes] = useState(0);
-	const [count, setCount] = useState(1)
+	const [count, setCount] = useState(1);
+	const [modal, setModal] = useState(false);
+	const [otherModal, setOtherModal] = useState(false);
 
 	var timer;
+
+	const difficultyMultiplier = {
+		easy: 1,
+		medium: 5,
+		hard: 10
+	};
 
 	useEffect(() => {
 		timer = setInterval(() => {
@@ -34,6 +45,10 @@ const RenderQuestions = ({
 			if (seconds == "Game Paused") {
 				setSeconds("Game Paused");
 			}
+
+			if(seconds == "Game Over"){
+				setSeconds("Game Over")
+			}
 			checkTime();
 		}, 1000);
 
@@ -43,6 +58,16 @@ const RenderQuestions = ({
 	if (!questions[0]) {
 		return <div></div>;
 	}
+
+	const toggleEnd = () => {
+		if (count == 2) {
+			setSeconds("Game Over")
+			setAnswerStatus("Game Over")
+			setModal(!modal);
+			return;
+		}
+		return;
+	};
 
 	const displayAnswerStatus = (answerStatus) => {
 		if (answerStatus === "correct") {
@@ -70,7 +95,7 @@ const RenderQuestions = ({
 			setAnswerStatus("wrong");
 			fetchQuestions(difficulty, category);
 			setSeconds(0);
-			setCount(count + 1)
+			setCount(count + 1);
 		}
 	};
 
@@ -85,26 +110,20 @@ const RenderQuestions = ({
 		setSeconds(0);
 	};
 
-	const checkCount = ()=>{
-		if(count === 10){
-			
-		}
-	}
-
 	const checkAnswer = (answer) => {
 		if (answer == questions[0].correct_answer) {
 			setAnswerStatus("correct");
-			fetchQuestions(difficulty,category);
+			fetchQuestions(difficulty, category);
 			setSeconds(0);
-			updateScore(points, 10);
-			setCount(count + 1)
+			updateScore(points, 10, difficultyMultiplier[difficulty]);
+			console.log(count);
 			return;
 		}
 
 		setAnswerStatus("wrong");
-		fetchQuestions(difficulty,category);
-		setCount(count + 1)
+		fetchQuestions(difficulty, category);
 		setSeconds(0);
+		console.log(count);
 	};
 
 	const displayTime = () => {
@@ -116,9 +135,8 @@ const RenderQuestions = ({
 	};
 
 	const questionCleaner = (question) => {
-
-		if(!question){
-			return <div></div>
+		if (!question) {
+			return <div></div>;
 		}
 
 		return question.replaceAll(/&quot;|&#039;/g, "'");
@@ -164,7 +182,7 @@ const RenderQuestions = ({
 					</div>
 					<div className="col-1">
 						<p className="time_text">{displayTime()}</p>
-						<p className="question_count_text">#{count}</p>
+						<p className="question_count_text">#{count - 1}</p>
 					</div>
 				</div>
 				<div className="row">
@@ -176,30 +194,82 @@ const RenderQuestions = ({
 					<div className="col-6">
 						<button
 							className="answer_button"
-							onClick={() => checkAnswer(answers[0])}>
+							onClick={() => {
+								setCount(count + 1);
+								toggleEnd();
+								checkAnswer(answers[0]);
+							}}>
 							{questionCleaner(answers[0])}
 						</button>
 					</div>
 					<div className="col-6">
 						<button
 							className="answer_button"
-							onClick={() => checkAnswer(answers[1])}>
+							onClick={() => {
+								setCount(count + 1);
+								toggleEnd();
+								checkAnswer(answers[1]);
+							}}>
 							{questionCleaner(answers[1])}
 						</button>
 					</div>
 					<div className="col-6">
 						<button
 							className="answer_button"
-							onClick={() => checkAnswer(answers[2])}>
+							onClick={() => {
+								setCount(count + 1);
+								toggleEnd();
+								checkAnswer(answers[2]);
+							}}>
 							{questionCleaner(answers[2])}
 						</button>
 					</div>
 					<div className="col-6">
 						<button
 							className="answer_button"
-							onClick={() => checkAnswer(answers[3])}>
+							onClick={() => {
+								setCount(count + 1);
+								toggleEnd();
+								checkAnswer(answers[3]);
+							}}>
 							{questionCleaner(answers[3])}
 						</button>
+					</div>
+					<div>
+						<div>
+							<Modal isOpen={modal}>
+								<ModalHeader>Round Over</ModalHeader>
+								<ModalBody>
+									Lorem ipsum dolor sit amet, consectetur adipisicing
+									elit, sed do eiusmod tempor incididunt ut labore et
+									dolore magna aliqua. Ut enim ad minim veniam, quis
+									nostrud exercitation ullamco laboris nisi ut aliquip
+									ex ea commodo consequat. Duis aute irure dolor in
+									reprehenderit in voluptate velit esse cillum dolore
+									eu fugiat nulla pariatur. Excepteur sint occaecat
+									cupidatat non proident, sunt in culpa qui officia
+									deserunt mollit anim id est laborum.
+								</ModalBody>
+								<ModalFooter>
+									<button className="difficulty_button">
+										<Link style={{textDecoration:"none", color:"white"}} to={"/"}>Back to Home Page</Link>
+									</button>
+								</ModalFooter>
+							</Modal>
+						</div>
+						<div>
+							<Modal isOpen={otherModal}>
+								<ModalHeader>Oops</ModalHeader>
+								<ModalBody>
+									Oh no, something went wrong.  Please hit the button below to attempt to fetch the question again
+								</ModalBody>
+								<ModalFooter>
+									<button onClick={()=>{fetchQuestions(difficulty, category) ; setOtherModal(!otherModal)}}>
+										Try Again
+									</button>
+								</ModalFooter>
+							</Modal>
+						</div>
 					</div>
 				</div>
 			</div>
@@ -213,7 +283,8 @@ const mapStateToProps = (state) => {
 		points: state.points,
 		answers: state.answers,
 		difficulty: state.difficulty,
-		category: state.category
+		category: state.category,
+		response_code: state.response_code
 	};
 };
 

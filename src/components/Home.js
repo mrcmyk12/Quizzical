@@ -1,9 +1,16 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { connect } from "react-redux";
+import { Modal, ModalBody, ModalHeader, ModalFooter } from "reactstrap";
 import { fetchQuestions, selectCategory, selectDifficulty } from "../actions";
 import { Link } from "react-router-dom";
 
-const Home = ({ fetchQuestions, selectDifficulty, selectCategory }) => {
+const Home = ({
+	fetchQuestions,
+	selectDifficulty,
+	selectCategory,
+	response_code,
+	points
+}) => {
 	const categoryObject = {
 		General: 9,
 		Books: 10,
@@ -57,9 +64,16 @@ const Home = ({ fetchQuestions, selectDifficulty, selectCategory }) => {
 		"Cartoons"
 	];
 
-	const [difficulty, setDifficulty] = useState("easy");
-	const [category, setCategory] = useState("general");
+	const [difficulty, setDifficulty] = useState("");
+	const [category, setCategory] = useState("");
+	const [modal, setModal] = useState(false);
 	const [fetchCategory, setFetchCategory] = useState(9);
+
+	useEffect(() => {
+		if (response_code !== 0) {
+			setModal(!modal);
+		}
+	}, [fetchQuestions]);
 
 	const mapCategories = categoryOptions.map((category) => {
 		return (
@@ -75,7 +89,7 @@ const Home = ({ fetchQuestions, selectDifficulty, selectCategory }) => {
 
 	const getCategory = (category) => {
 		if (category === "Musicals & Theater") {
-			return selectCategory(categoryObject["MusicalsTheater"]) 
+			return selectCategory(categoryObject["MusicalsTheater"]);
 		}
 		if (category === "Video Games") {
 			return selectCategory(categoryObject["VideoGames"]);
@@ -97,16 +111,13 @@ const Home = ({ fetchQuestions, selectDifficulty, selectCategory }) => {
 
 	const difficultyHandler = (level) => {
 		setDifficulty(level);
-      selectDifficulty(level)
+		selectDifficulty(level);
 	};
 
 	return (
 		<div className="container">
 			<div className="row">
-				<div className="col-3">
-					<p className="select_difficulty_text">Select Difficulty</p>
-				</div>
-				<div className="col-7">
+				<div className="col-6">
 					<p className="subheading_text">
 						Difficulty:{" "}
 						<b
@@ -117,6 +128,9 @@ const Home = ({ fetchQuestions, selectDifficulty, selectCategory }) => {
 						Category: <b className="category_selection">{category}</b>
 					</p>
 				</div>
+				<div className="col-4">
+					<p className="subheading_text">Current Point Total:{" "}<b className="point_total_text">{points}</b></p>
+				</div>
 				<div className="col-2">
 					<button className="start_button">
 						<Link
@@ -125,6 +139,11 @@ const Home = ({ fetchQuestions, selectDifficulty, selectCategory }) => {
 							Start Game
 						</Link>
 					</button>
+				</div>
+			</div>
+			<div className="row">
+				<div className="col-3">
+					<p className="select_difficulty_text">Select Difficulty</p>
 				</div>
 			</div>
 			<div className="row">
@@ -155,11 +174,38 @@ const Home = ({ fetchQuestions, selectDifficulty, selectCategory }) => {
 			</div>
 			<div className="row">{mapCategories}</div>
 			<div className="row"></div>
+			<div>
+				<Modal isOpen={modal}>
+					<ModalHeader>Welcome to Quizzical</ModalHeader>
+					<ModalBody>
+						Welcome to Quizzical. Test your trivia knowledge throughout a
+						myriad of categories. So be sure to choose a category and
+						difficulty and start your journey. Try to rack up a high score
+						so that you can be added to our leaderboard.
+					</ModalBody>
+					<ModalFooter>
+						<button
+							className="start_button"
+							onClick={() => {
+								setModal(!modal);
+							}}>
+							Start
+						</button>
+					</ModalFooter>
+				</Modal>
+			</div>
 		</div>
 	);
 };
 
-export default connect(null, {
+const mapStateToProps = (state) => {
+	return {
+		response_code: state.response_code,
+		points:	state.points
+	};
+};
+
+export default connect(mapStateToProps, {
 	fetchQuestions: fetchQuestions,
 	selectCategory: selectCategory,
 	selectDifficulty: selectDifficulty

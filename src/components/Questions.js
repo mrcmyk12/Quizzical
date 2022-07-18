@@ -1,11 +1,12 @@
 import React, { useEffect } from "react";
 import { connect } from "react-redux";
-import { fetchQuestions } from "../actions";
+import { fetchQuestions, getSessionKey } from "../actions";
 import RenderQuestions from "./RenderQuestions";
 
 const Questions = (props) => {
 	useEffect(() => {
-		props.fetchQuestions(props.difficulty,props.category);
+		props.getSessionKey();
+		props.fetchQuestions(props.difficulty,props.category, props.sessionKey);
 		console.log(props);
 	}, []);
 
@@ -25,10 +26,12 @@ const mapStateToProps = (state) => {
 		questions: state.questions,
 		answers: state.answers,
 		category: state.category,
-		difficulty: state.difficulty
+		difficulty: state.difficulty,
+		sessionKey: state.sessionKey
 	};
 };
 
 export default connect(mapStateToProps, {
-	fetchQuestions: fetchQuestions
+	fetchQuestions: fetchQuestions,
+	getSessionKey: getSessionKey
 })(Questions);
