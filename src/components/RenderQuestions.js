@@ -186,7 +186,7 @@ const RenderQuestions = ({
 					</div>
 					<div className="col">
 						<p className="time_text">{displayTime()}</p>
-						<p className="question_count_text">Round #{count - 1}</p>
+						<p className="question_count_text">Question #{count - 1}</p>
 					</div>
 				</div>
 				<div className="row">
@@ -196,7 +196,7 @@ const RenderQuestions = ({
 					</div>
 				</div>
 				<div className="row">
-					<div className="col-sm-6">
+					<div className="col-6">
 						<button
 							className="answer_button"
 							onClick={() => {
@@ -207,7 +207,7 @@ const RenderQuestions = ({
 							{questionCleaner(answers[0])}
 						</button>
 					</div>
-					<div className="col-sm-6">
+					<div className="col-6">
 						<button
 							className="answer_button"
 							onClick={() => {
@@ -218,7 +218,7 @@ const RenderQuestions = ({
 							{questionCleaner(answers[1])}
 						</button>
 					</div>
-					<div className="col-sm-6">
+					<div className="col-6">
 						<button
 							className="answer_button"
 							onClick={() => {
@@ -229,7 +229,7 @@ const RenderQuestions = ({
 							{questionCleaner(answers[2])}
 						</button>
 					</div>
-					<div className="col-sm-6">
+					<div className="col-6">
 						<button
 							className="answer_button"
 							onClick={() => {
