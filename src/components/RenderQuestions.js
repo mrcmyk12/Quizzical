@@ -156,16 +156,17 @@ const RenderQuestions = ({
 	};
 
 	return (
-		<div>
+
 			<div className="container">
 				<div className="row" style={{ marginBottom: "30px" }}>
-					<div className="col-sm-3">
+					<div className="col">
 						<p className="point_text">{points}</p>
 					</div>
-					<div className="col-sm-5">
+					<div className="col">
 						<p className={`${answerStatus}`}>{answerStatus}</p>
 					</div>
-					<div className="col-sm-1">
+					<div className="row">
+					<div className="col">
 						<a onClick={() => play()}>
 							<FontAwesomeIcon
 								className="fa-2xl"
@@ -174,7 +175,7 @@ const RenderQuestions = ({
 							/>
 						</a>
 					</div>
-					<div className="col-sm-1">
+					<div className="col">
 						<a onClick={() => pause()}>
 							<FontAwesomeIcon
 								className="fa-2xl"
@@ -183,14 +184,15 @@ const RenderQuestions = ({
 							/>
 						</a>
 					</div>
-					<div className="col-sm-1">
+					<div className="col">
 						<p className="time_text">{displayTime()}</p>
-						<p className="question_count_text">#{count - 1}</p>
+						<p className="question_count_text">Round #{count - 1}</p>
 					</div>
 				</div>
 				<div className="row">
 					<div className="card question-card">
 						<p>{questionCleaner(questions[0].question)}</p>
+					</div>
 					</div>
 				</div>
 				<div className="row">
@@ -244,7 +246,7 @@ const RenderQuestions = ({
 								<ModalHeader>Round Over</ModalHeader>
 								<ModalBody>
 									Awesome. You have finished this round. Go back to the
-									home page and seleect a different category to score
+									home page and select a different category to score
 									some more points.
 								</ModalBody>
 								<ModalFooter>
@@ -282,7 +284,6 @@ const RenderQuestions = ({
 					</div>
 				</div>
 			</div>
-		</div>
 	);
 };
 

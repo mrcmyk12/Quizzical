@@ -84,10 +84,10 @@ const Home = ({
 	}, [fetchQuestions]);
 
 	useEffect(() => {
-		if(round > 5){
-
+		if (round > 2) {
+			setEndModal(!endModal)
 		}
-	})
+	},[]);
 
 	const mapCategories = categoryOptions.map((category) => {
 		return (
@@ -139,7 +139,12 @@ const Home = ({
 							style={{ marginRight: "15px" }}>
 							{difficulty}
 						</b>
-						Category: <b className="category_selection" style={{marginRight:"15px"}}>{category}</b>
+						Category:{" "}
+						<b
+							className="category_selection"
+							style={{ marginRight: "15px" }}>
+							{category}
+						</b>
 						Round: <b className="category_selection">{round}</b>
 					</p>
 				</div>
@@ -208,6 +213,22 @@ const Home = ({
 								setModal(!modal);
 							}}>
 							Start
+						</button>
+					</ModalFooter>
+				</Modal>
+			</div>
+			<div>
+				<Modal isOpen={endModal}>
+					<ModalHeader>Game Over</ModalHeader>
+					<ModalBody>
+						Congrats. You have completed our questions challenge. Your
+						score is <b>{points}</b> Press restart to start a new game.
+					</ModalBody>
+					<ModalFooter>
+						<button
+							onClick={() => setEndModal(!endModal)}
+							className="start_button">
+							Restart Game
 						</button>
 					</ModalFooter>
 				</Modal>
