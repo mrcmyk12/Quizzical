@@ -84,10 +84,10 @@ const Home = ({
 	}, [fetchQuestions]);
 
 	useEffect(() => {
-		if (round > 2) {
-			setEndModal(!endModal)
+		if (round > 4) {
+			setEndModal(!endModal);
 		}
-	},[]);
+	}, []);
 
 	const mapCategories = categoryOptions.map((category) => {
 		return (
@@ -203,8 +203,8 @@ const Home = ({
 					<ModalBody>
 						Welcome to Quizzical. Test your trivia knowledge throughout a
 						myriad of categories. So be sure to choose a category and
-						difficulty and start your journey. Try to rack up a high score
-						so that you can be added to our leaderboard.
+						difficulty and start your journey. You have 4 rounds to rack
+						up as many points as possible. Good Luck.
 					</ModalBody>
 					<ModalFooter>
 						<button

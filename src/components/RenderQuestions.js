@@ -26,6 +26,7 @@ const RenderQuestions = ({
 	const [count, setCount] = useState(1);
 	const [modal, setModal] = useState(false);
 	const [otherModal, setOtherModal] = useState(false);
+	const [questionQueue, setQuestionQueue] = useState([]);
 
 	var timer;
 
@@ -66,11 +67,23 @@ const RenderQuestions = ({
 			setSeconds("Game Over");
 			setAnswerStatus("Game Over");
 			setModal(!modal);
-			updateRound(round)
+			updateRound(round);
 			return;
 		}
 		return;
 	};
+
+	// const checkRedundancy = (question) => {
+	// 	const status = questionQueue.find(question);
+
+	// 	if (status) {
+	// 		fetchQuestions(difficulty, category);
+	// 		setSeconds(0);
+	// 		return;
+	// 	}
+
+	// 	return;
+	// };
 
 	const displayAnswerStatus = (answerStatus) => {
 		if (answerStatus === "correct") {
@@ -97,7 +110,11 @@ const RenderQuestions = ({
 		if (seconds === 15) {
 			setAnswerStatus("wrong");
 			fetchQuestions(difficulty, category);
+			setQuestionQueue([questionQueue.push(questions[0].question)]);
+			console.log(questionQueue);
+			
 			setSeconds(0);
+
 			setCount(count + 1);
 		}
 	};
@@ -107,9 +124,13 @@ const RenderQuestions = ({
 		setAnswerStatus("paused");
 	};
 
+
 	const play = () => {
 		setAnswerStatus("resumed");
 		fetchQuestions(difficulty, category);
+		setQuestionQueue([questionQueue.push(questions[0].question)]);
+		console.log(questionQueue);
+	
 		setSeconds(0);
 	};
 
@@ -117,6 +138,9 @@ const RenderQuestions = ({
 		if (answer == questions[0].correct_answer) {
 			setAnswerStatus("correct");
 			fetchQuestions(difficulty, category);
+			setQuestionQueue([questionQueue.push(questions[0].question)]);
+			console.log(questionQueue);
+		
 			setSeconds(0);
 			updateScore(points, 10, difficultyMultiplier[difficulty]);
 			console.log(count);
@@ -125,6 +149,9 @@ const RenderQuestions = ({
 
 		setAnswerStatus("wrong");
 		fetchQuestions(difficulty, category);
+		setQuestionQueue([questionQueue.push(questions[0].question)]);
+		console.log(questionQueue);
+		
 		setSeconds(0);
 		console.log(count);
 	};
@@ -156,16 +183,15 @@ const RenderQuestions = ({
 	};
 
 	return (
-
-			<div className="container">
-				<div className="row" style={{ marginBottom: "30px" }}>
-					<div className="col">
-						<p className="point_text">{points}</p>
-					</div>
-					<div className="col">
-						<p className={`${answerStatus}`}>{answerStatus}</p>
-					</div>
-					<div className="row">
+		<div className="container">
+			<div className="row" style={{ marginBottom: "30px" }}>
+				<div className="col">
+					<p className="point_text">{points}</p>
+				</div>
+				<div className="col">
+					<p className={`${answerStatus}`}>{answerStatus}</p>
+				</div>
+				<div className="row">
 					<div className="col">
 						<a onClick={() => play()}>
 							<FontAwesomeIcon
@@ -193,97 +219,97 @@ const RenderQuestions = ({
 					<div className="card question-card">
 						<p>{questionCleaner(questions[0].question)}</p>
 					</div>
-					</div>
 				</div>
-				<div className="row">
-					<div className="col-6">
-						<button
-							className="answer_button"
-							onClick={() => {
-								setCount(count + 1);
-								toggleEnd();
-								checkAnswer(answers[0]);
-							}}>
-							{questionCleaner(answers[0])}
-						</button>
-					</div>
-					<div className="col-6">
-						<button
-							className="answer_button"
-							onClick={() => {
-								setCount(count + 1);
-								toggleEnd();
-								checkAnswer(answers[1]);
-							}}>
-							{questionCleaner(answers[1])}
-						</button>
-					</div>
-					<div className="col-6">
-						<button
-							className="answer_button"
-							onClick={() => {
-								setCount(count + 1);
-								toggleEnd();
-								checkAnswer(answers[2]);
-							}}>
-							{questionCleaner(answers[2])}
-						</button>
-					</div>
-					<div className="col-6">
-						<button
-							className="answer_button"
-							onClick={() => {
-								setCount(count + 1);
-								toggleEnd();
-								checkAnswer(answers[3]);
-							}}>
-							{questionCleaner(answers[3])}
-						</button>
+			</div>
+			<div className="row">
+				<div className="col-6">
+					<button
+						className="answer_button"
+						onClick={() => {
+							setCount(count + 1);
+							toggleEnd();
+							checkAnswer(answers[0]);
+						}}>
+						{questionCleaner(answers[0])}
+					</button>
+				</div>
+				<div className="col-6">
+					<button
+						className="answer_button"
+						onClick={() => {
+							setCount(count + 1);
+							toggleEnd();
+							checkAnswer(answers[1]);
+						}}>
+						{questionCleaner(answers[1])}
+					</button>
+				</div>
+				<div className="col-6">
+					<button
+						className="answer_button"
+						onClick={() => {
+							setCount(count + 1);
+							toggleEnd();
+							checkAnswer(answers[2]);
+						}}>
+						{questionCleaner(answers[2])}
+					</button>
+				</div>
+				<div className="col-6">
+					<button
+						className="answer_button"
+						onClick={() => {
+							setCount(count + 1);
+							toggleEnd();
+							checkAnswer(answers[3]);
+						}}>
+						{questionCleaner(answers[3])}
+					</button>
+				</div>
+				<div>
+					<div>
+						<Modal isOpen={modal}>
+							<ModalHeader>Round Over</ModalHeader>
+							<ModalBody>
+								Awesome. You have finished this round. Go back to the
+								home page and select a different category to score some
+								more points.
+							</ModalBody>
+							<ModalFooter>
+								<button className="difficulty_button">
+									<Link
+										style={{
+											textDecoration: "none",
+											color: "white"
+										}}
+										to={"/"}>
+										Back to Home Page
+									</Link>
+								</button>
+							</ModalFooter>
+						</Modal>
 					</div>
 					<div>
-						<div>
-							<Modal isOpen={modal}>
-								<ModalHeader>Round Over</ModalHeader>
-								<ModalBody>
-									Awesome. You have finished this round. Go back to the
-									home page and select a different category to score
-									some more points.
-								</ModalBody>
-								<ModalFooter>
-									<button className="difficulty_button">
-										<Link
-											style={{
-												textDecoration: "none",
-												color: "white"
-											}}
-											to={"/"}>
-											Back to Home Page
-										</Link>
-									</button>
-								</ModalFooter>
-							</Modal>
-						</div>
-						<div>
-							<Modal isOpen={otherModal}>
-								<ModalHeader>Oops</ModalHeader>
-								<ModalBody>
-									Oh no, something went wrong. Please hit the button
-									below to attempt to fetch the question again
-								</ModalBody>
-								<ModalFooter>
-									<button
-										onClick={() => {
-											fetchQuestions(difficulty, category);
-											setOtherModal(!otherModal);
-										}}>
-										Try Again
-									</button>
-								</ModalFooter>
-							</Modal>
-						</div>
+						<Modal isOpen={otherModal}>
+							<ModalHeader>Oops</ModalHeader>
+							<ModalBody>
+								Oh no, something went wrong. Please hit the button below
+								to attempt to fetch the question again
+							</ModalBody>
+							<ModalFooter>
+								<button
+									onClick={() => {
+										fetchQuestions(difficulty, category);
+										setOtherModal(!otherModal);
+									}}>
+									Try Again
+								</button>
+							</ModalFooter>
+						</Modal>
 					</div>
 				</div>
 			</div>
+		</div>
 	);
 };
 
